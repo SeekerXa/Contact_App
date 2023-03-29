@@ -23,8 +23,9 @@
                           <tr>
                             <th scope="col">#</th>
                             <th scope="col">First Name</th>
-                            <th scope="col">Phone</th>
+                            <th scope="col">Last Name</th>
                             <th scope="col">Email</th>
+                            <th scope="col">Phone</th>
                             <th scope="col">Company</th>
                             <th scope="col">Actions</th>
                           </tr>
@@ -32,30 +33,19 @@
                           
 
                         <tbody>
-                          @forelse ($contacts as $id => $contact)
+                          {{-- @forelse ($contacts as $id => $contact)
                             @include("contacts._contact", ['contact' => $contact])
                           @empty
                             @include('contacts._empty')
-                          @endforelse 
+                          @endforelse  --}}
                            
-                          
+                          @each('contacts._contact', $contacts, 'contact', 'contacts._empty')
 
                         </tbody>
                       </table> 
         
-                      <nav class="mt-4">
-                          <ul class="pagination justify-content-center">
-                            <li class="page-item disabled">
-                              <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                            </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                              <a class="page-link" href="#">Next</a>
-                            </li>
-                          </ul>
-                        </nav>
+                      {{$contacts->links()}}
+                      
                     </div>
                   </div>
                 </div>

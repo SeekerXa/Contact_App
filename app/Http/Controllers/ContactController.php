@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\CompanyRepository;
+use App\Models\Contact;
 use Illuminate\Http\Request;
+use App\Repositories\CompanyRepository;
 
 class ContactController extends Controller
 {
@@ -25,29 +26,22 @@ class ContactController extends Controller
         // ];
 
 
-        $companies = $this->company->pluck();   
-    
-        $contacts = $this->getContacts();
+        $companies = $this->company->pluck();
+
+        $contacts = Contact::latest()->paginate(10);
         return view('contacts.index', compact('contacts','companies'));
     }
     
-    private function getContacts() {
 
-        return [
-            1 => ['name' => 'Name 1', 'phone' => '1234567890'],
-            2 => ['name' => 'Name 2', 'phone' => '2345678901'],
-            3 => ['name' => 'Name 3', 'phone' => '3456789012'],
-        ];
-    }
 
     public function create(){
         return view('contacts.create');
     }
 
     public function show(int $id){
-        $contacts = $this->getContacts();
-        $contact = $contacts[$id];
-        abort_if(!isset($contacts[$id]), 404);
+
+        $contact = Contact::findOrFail($id);
+    
         return view('contacts.show')->with('contact', $contact);
     }
 
