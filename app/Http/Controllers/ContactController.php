@@ -41,7 +41,9 @@ class ContactController extends Controller
             'company_id' => 'required|exists:companies,id'
         ]);
 
-        dd($request->collect());
+        Contact::create($request->all());
+        
+        return redirect()->route('contacts.index')->with('message','Contact has been added successfully');
     }
 
  
@@ -58,9 +60,31 @@ class ContactController extends Controller
         return view('contacts.show')->with('contact', $contact);
     }
 
+    public function edit(int $id){
+
+        $companies = $this->company->pluck();
+        $contact = Contact::findOrFail($id);
+
+        return view('contacts.edit', compact('comapnies', 'contact') );
+    }
 
    
+    public function update(Request $request, $id){
 
+        $contact = Contact::findOrFail($id);   
+        $request->validate([
+            'first_name'=>'required|string|max:50',
+            'last_name'=>'required|string|max:50',
+            'email'=>'required|email',
+            'phone' => 'nullable',
+            'address' => 'nullable',
+            'company_id' => 'required|exists:companies,id'
+        ]);
+
+        $contact->update($request->all());
+        
+        return redirect()->route('contacts.index')->with('message','Contact has been updated successfully');
+    }
 
 
 

@@ -31,7 +31,8 @@ Route::post('/contacts',[ContactController::class, 'store' ])->name('contacts.st
 
 Route::get('/contacts/create',[ContactController::class, 'create'])->name('contacts.create');
 Route::get('/contacts/{id}',[ContactController::class, 'show'])->name('contacts.show');   
-
+Route::get('/contacts/{id}/edit',[ContactController::class, 'edit'])->name('contacts.edit');   
+Route::put('/contacts/{id}',[ContactController::class, 'update'])->name('contacts.update');   
 
 Route::resource('/companies', CompanyController::class);
 Route::resources([
