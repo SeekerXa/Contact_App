@@ -49,8 +49,8 @@ class ContactController extends Controller
  
     public function create(){
         $companies = $this->company->pluck();
-
-        return view('contacts.create', compact("companies") );
+        $contact = new Contact();
+        return view('contacts.create', compact('companies','contact') );
     }
 
     public function show(int $id){
@@ -65,7 +65,7 @@ class ContactController extends Controller
         $companies = $this->company->pluck();
         $contact = Contact::findOrFail($id);
 
-        return view('contacts.edit', compact('comapnies', 'contact') );
+        return view('contacts.edit', compact('companies', 'contact') );
     }
 
    
