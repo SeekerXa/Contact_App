@@ -22,11 +22,18 @@ class ContactController extends Controller
         $companies = $this->company->pluck();
 
         $contacts = Contact::latest()->where(function ($query) {
-            if($companyId = request()->query("company_id")) {
-                $query->where("company_id", $companyId); 
-            }
-        })
-        ->paginate(10);
+                if($companyId = request()->query("company_id")) {
+                    $query->where("company_id", $companyId); 
+                }
+
+            })->where(function ($query) {
+                if ($search = request()->query('search')) {
+                    $query->where("first_name", "LIKE", "%{$search}%");
+                    $query->orWhere("last_name", "LIKE", "%{$search}%");
+                    $query->orWhere("email", "LIKE", "%{$search}%");
+                }
+            })->paginate(10);
+        
 
         return view('contacts.index', compact('contacts','companies'));
     }
