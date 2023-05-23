@@ -2,13 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Scopes\AllowedSort;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Scopes\AllowedFilterSearch;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Scopes\SimpleSoftDeletingScope;
+use Illuminate\Contracts\Database\Query\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Contact extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory,SoftDeletes,AllowedFilterSearch, AllowedSort;
     protected $fillable = ['first_name', 'last_name', 'email', 'phone', 'address', 'company_id'  ];
 
     public function company(){
@@ -19,5 +23,5 @@ class Contact extends Model
     {
         return $this->hasMany(Task::class);
     }
-
+    
 }
