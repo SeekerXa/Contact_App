@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contact;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Http\Requests\ContactRequest;
 use App\Repositories\CompanyRepository;
 
@@ -22,6 +20,7 @@ class ContactController extends Controller
 
     public function index()
     {
+
         $companies = $this->company->pluck();
        
         $contacts = Contact::allowedTrash()
