@@ -8,6 +8,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\WelcomeController;
+use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Validation\NestedRules;
 
@@ -26,7 +27,7 @@ use Illuminate\Validation\NestedRules;
 
 Route::get('/', WelcomeController::class);
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth','verified'])->group(function () {
     Route::get('/dashboard', DashboardController::class);
     Route::resource('/contacts', ContactController::class);
     Route::delete('/contacts/{contact}/restore', [ContactController::class, 'restore'])
