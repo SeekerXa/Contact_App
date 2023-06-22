@@ -15,7 +15,8 @@ class Contact extends Model
     use HasFactory,SoftDeletes,AllowedFilterSearch, AllowedSort;
     protected $fillable = ['first_name', 'last_name', 'email', 'phone', 'address', 'company_id'  ];
 
-    public function company(){
+    public function company()
+    {
         return $this->belongsTo(Company::class);
     }
 
@@ -24,4 +25,8 @@ class Contact extends Model
         return $this->hasMany(Task::class);
     }
     
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
