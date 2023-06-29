@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Contact;
@@ -7,10 +6,10 @@ use App\Models\Company;
 use App\Http\Requests\ContactRequest;
 
 
-class ContactController extends Controller
+class ContactController extends Controller 
 {
+    
 
-  
     protected function userCompanies()
     {
         return Company::forUser(auth()->user())->orderBy('name')->pluck('name', 'id');
@@ -19,7 +18,7 @@ class ContactController extends Controller
 
     public function index()
     {
-
+      
         $companies = $this->userCompanies();
        
         $contacts = Contact::allowedTrash()
@@ -74,6 +73,8 @@ class ContactController extends Controller
             ->with('message', 'Contact has been moved to trash.')
             ->with('undoRoute', $this->getUndoRoute('contacts.restore', $contact));
     }
+    
+    
 
     public function restore(Contact $contact)
     {

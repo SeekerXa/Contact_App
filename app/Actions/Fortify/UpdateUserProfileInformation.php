@@ -62,7 +62,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             $uploadedFile = $input['profile_picture'];
 
             $fileName = $uploadedFile->storeAs(
-                'profile',
+                'public/profile',
                 'profile-user-' . request()->user()->id .
                     '.' .
                     $uploadedFile->getClientOriginalExtension()
