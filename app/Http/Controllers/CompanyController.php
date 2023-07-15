@@ -13,8 +13,9 @@ class CompanyController extends Controller
     {
         $companies = Company::allowedTrash()
         ->allowedSorts(['name', 'website', 'email'], '-id')
-        ->allowedSearch('name', 'website', 'email')
+        ->allowedSearch('name', 'website', 'email') 
         ->forUser(auth()->user())
+        ->withCount("contacts")
         ->paginate(10);
 
     return view('companies.index', compact('companies'));
